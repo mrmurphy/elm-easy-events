@@ -2,7 +2,7 @@ module EasyEvents (onInput, onEnterPress, onSpecificKeyPress) where
 
 {-|
 # Event helpers
-@docs onInput, onSpecificKeyPress, onEnterPressed
+@docs onInput, onSpecificKeyPress, onEnterPress
 -}
 
 import Html exposing (Html)

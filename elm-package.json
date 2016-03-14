@@ -4,7 +4,7 @@
     "repository": "https://github.com/splodingsocks/elm-easy-events.git",
     "license": "BSD3",
     "source-directories": [
-        "."
+        "src"
     ],
     "exposed-modules": ["EasyEvents"],
     "dependencies": {
