@@ -1,8 +1,8 @@
-module EasyEvents (onInput, onEnterPress, onSpecificKeyPress) where
+module EasyEvents (onInput, onEnterPress, onSpecificKeyPress, onChange) where
 
 {-|
 # Event helpers
-@docs onInput, onSpecificKeyPress, onEnterPress
+@docs onInput, onSpecificKeyPress, onEnterPress, onChange
 -}
 
 import Html exposing (Html)
@@ -33,19 +33,19 @@ event is fired on the input element.
 -}
 onInput : Address action -> (String -> action) -> Html.Attribute
 onInput address actionCreator =
-    on "input" targetValue (\str -> message address (actionCreator str))
+  on "input" targetValue (\str -> message address (actionCreator str))
 
 
 keyDecoder : Int -> Decoder Int
 keyDecoder code =
-    customDecoder
-        Decode.int
-        (\i ->
-            if i == code then
-                Result.Ok i
-            else
-                Result.Err ""
-        )
+  customDecoder
+    Decode.int
+    (\i ->
+      if i == code then
+        Result.Ok i
+      else
+        Result.Err ""
+    )
 
 
 {-| Takes an address, a key code, and an action. Sends the action to the address
@@ -56,10 +56,10 @@ form when the enter key is pressed, for example).
 -}
 onSpecificKeyPress : Address action -> Int -> action -> Html.Attribute
 onSpecificKeyPress address code action =
-    on
-        "keypress"
-        ("keyCode" := (keyDecoder code))
-        (\_ -> message address action)
+  on
+    "keypress"
+    ("keyCode" := (keyDecoder code))
+    (\_ -> message address action)
 
 
 {-| Takes an address, and an action, and sends the action to the address only
@@ -67,4 +67,16 @@ when the enter key is pressed on the parent element.
 -}
 onEnterPress : Address action -> action -> Html.Attribute
 onEnterPress address action =
-    onSpecificKeyPress address 13 action
+  onSpecificKeyPress address 13 action
+
+
+{-| Takes an address of a type, and a function that produces a value of that
+type from a string. That value will be send to the address in a message
+when a "change" event is fired.
+
+You'll probably use this to send an action to your update function when
+and HTML <select> is changed.
+-}
+onChange : Address a -> (String -> a) -> Html.Attribute
+onChange address fn =
+  on "change" targetValue (\val -> Signal.message address (fn val))
