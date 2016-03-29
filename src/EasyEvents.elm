@@ -11,6 +11,7 @@ import Html.Attributes exposing (..)
 import Signal exposing (message, Address)
 import Json.Decode as Decode exposing (customDecoder, Decoder, (:=))
 import Result
+import String
 
 
 {-| Accepts an action, and a function that turns a string into an action.
@@ -34,6 +35,38 @@ event is fired on the input element.
 onInput : Address action -> (String -> action) -> Html.Attribute
 onInput address actionCreator =
   on "input" targetValue (\str -> message address (actionCreator str))
+
+
+{-| Like `onInput`, but for Ints instead of Strings
+-}
+onInputInt : Address action -> (Int -> action) -> Html.Attribute
+onInputInt address actionCreator =
+  on
+    "input"
+    targetValue
+    (\str ->
+      let
+        int =
+          Result.withDefault 0 (String.toInt str)
+      in
+        message address (actionCreator int)
+    )
+
+
+{-| Like `onInput`, but for Floats instead of Strings
+-}
+onInputFloat : Address action -> (Float -> action) -> Html.Attribute
+onInputFloat address actionCreator =
+  on
+    "input"
+    targetValue
+    (\str ->
+      let
+        float =
+          Result.withDefault 0.0 (String.toFloat str)
+      in
+        message address (actionCreator float)
+    )
 
 
 keyDecoder : Int -> Decoder Int
