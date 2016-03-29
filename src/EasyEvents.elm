@@ -75,7 +75,7 @@ type from a string. That value will be send to the address in a message
 when a "change" event is fired.
 
 You'll probably use this to send an action to your update function when
-and HTML <select> is changed.
+an HTML `select` is changed.
 -}
 onChange : Address a -> (String -> a) -> Html.Attribute
 onChange address fn =

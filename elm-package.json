@@ -1,12 +1,14 @@
 {
-    "version": "1.0.0",
+    "version": "1.1.1",
     "summary": "Easy action-producing events for elm-html elements",
     "repository": "https://github.com/splodingsocks/elm-easy-events.git",
     "license": "BSD3",
     "source-directories": [
         "src"
     ],
-    "exposed-modules": ["EasyEvents"],
+    "exposed-modules": [
+        "EasyEvents"
+    ],
     "dependencies": {
         "elm-lang/core": "3.0.0 <= v < 4.0.0",
         "evancz/elm-html": "4.0.2 <= v < 5.0.0"
