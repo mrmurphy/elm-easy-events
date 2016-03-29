@@ -1,8 +1,8 @@
-module EasyEvents (onInput, onEnterPress, onSpecificKeyPress, onChange) where
+module EasyEvents (onInput, onInputInt, onInputFloat, onEnterPress, onSpecificKeyPress, onChange) where
 
 {-|
 # Event helpers
-@docs onInput, onSpecificKeyPress, onEnterPress, onChange
+@docs onInput, onInputInt, onInputFloat, onSpecificKeyPress, onEnterPress, onChange
 -}
 
 import Html exposing (Html)
